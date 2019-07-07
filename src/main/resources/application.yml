@@ -10,11 +10,11 @@ spring:
     time-zone: GMT+8
     date-format: yyyy-MM-dd HH:mm:ss
   datasource:
-    database: tacmgmt
+    database: smx_kpi
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://172.18.0.212:3306/${spring.datasource.database}?useUnicode=true&characterEncoding=utf-8
-    username: tacmgmt
-    password: tacmgmt
+    url: jdbc:mysql://192.168.0.119:3306/${spring.datasource.database}?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: 123456
 logging:
   level:
     com.xieyu.mbgenerator: debug

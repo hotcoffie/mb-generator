@@ -24,24 +24,32 @@ public class AppController {
     private String database;
 
     @GetMapping("tables")
-    public List<Map<String, Object>> tables() {
-        return jdbcTemplate.queryForList("SELECT TABLE_NAME `name`,TABLE_COMMENT `comment` FROM information_schema.tables WHERE table_schema=? ", database);
+    public Result tables() {
+        List<Map<String, Object>> list = jdbcTemplate.queryForList(
+                "SELECT TABLE_NAME `name`,TABLE_COMMENT `comment` " +
+                        "FROM information_schema.tables " +
+                        "WHERE table_schema=? ",
+                database);
+        return Result.success(list);
     }
 
     @GetMapping("clos")
-    public List<Map<String, Object>> clos(@RequestParam String tableName) {
-        return jdbcTemplate.queryForList("SELECT\n" +
-                "\tt1.COLUMN_NAME `name`,\n" +
-                "\tt1.COLUMN_TYPE `type`,\n" +
-                "\tt1.COLUMN_COMMENT `comment`,\n" +
-                "\tIF(t2.COLUMN_NAME IS NULL, 0,1) `isPrimary`\n" +
-                "FROM\n" +
-                "\tINFORMATION_SCHEMA. COLUMNS t1\n" +
-                "LEFT JOIN INFORMATION_SCHEMA.KEY_COLUMN_USAGE t2 ON t1.TABLE_SCHEMA = t2.TABLE_SCHEMA\n" +
-                "AND t1.TABLE_NAME = t2.TABLE_NAME\n" +
-                "AND t2.CONSTRAINT_NAME = 'PRIMARY'\n" +
-                "AND t1.COLUMN_NAME = t2.COLUMN_NAME\n" +
-                "WHERE t1.TABLE_SCHEMA=? AND t1.TABLE_NAME=?", database, tableName);
+    public Result clos(@RequestParam String tableName) {
+        List<Map<String, Object>> list = jdbcTemplate.queryForList(
+                "SELECT\n" +
+                        "\tt1.COLUMN_NAME `name`,\n" +
+                        "\tt1.COLUMN_TYPE `type`,\n" +
+                        "\tt1.COLUMN_COMMENT `comment`,\n" +
+                        "\tIF(t2.COLUMN_NAME IS NULL, 0,1) `isPrimary`\n" +
+                        "FROM\n" +
+                        "\tINFORMATION_SCHEMA. COLUMNS t1\n" +
+                        "LEFT JOIN INFORMATION_SCHEMA.KEY_COLUMN_USAGE t2 ON t1.TABLE_SCHEMA = t2.TABLE_SCHEMA\n" +
+                        "AND t1.TABLE_NAME = t2.TABLE_NAME\n" +
+                        "AND t2.CONSTRAINT_NAME = 'PRIMARY'\n" +
+                        "AND t1.COLUMN_NAME = t2.COLUMN_NAME\n" +
+                        "WHERE t1.TABLE_SCHEMA=? AND t1.TABLE_NAME=?",
+                database, tableName);
+        return Result.success(list);
     }
 
 }
