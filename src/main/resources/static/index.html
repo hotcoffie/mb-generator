@@ -272,6 +272,7 @@
 <script src="/js/code-maker/entity-maker.js" type="text/javascript"></script>
 <script src="/js/code-maker/dao-maker.js" type="text/javascript"></script>
 <script src="/js/code-maker/mapper-maker.js" type="text/javascript"></script>
+<script src="/js/utils/comment.js" type="text/javascript"></script>
 <script>
 
     const CodeMirrorConf = {
@@ -539,8 +540,6 @@
         download(filename, fileText);
     }
 
-
-    /*=========================================工具方法==================================*/
     //提示框
     function myAlert(msg, title) {
         $('#myAlert .modal-body p').html(msg);
@@ -552,27 +551,6 @@
             keyboard: false,
             show: true
         });
-    }
-
-    //驼峰命名
-    function camelCase(string) {
-        return string.replace(/_([a-z])/g, function (all, letter) {
-            return letter.toUpperCase();
-        });
-    }
-
-    //生成可下载的文本文件
-    function download(filename, text) {
-        var element = document.createElement('a');
-        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-        element.setAttribute('download', filename);
-
-        element.style.display = 'none';
-        document.body.appendChild(element);
-
-        element.click();
-
-        document.body.removeChild(element);
     }
 </script>
 </body>
