@@ -10,11 +10,21 @@ spring:
     time-zone: GMT+8
     date-format: yyyy-MM-dd HH:mm:ss
   datasource:
-    database: smx_kpi
+    #    database: smx_kpi
+    #    driver-class-name: com.mysql.cj.jdbc.Driver
+    #    url: jdbc:mysql://192.168.0.119:3306/${spring.datasource.database}?useUnicode=true&characterEncoding=utf-8
+    #    username: root
+    #    password: 123456
+    database: tacmgmt
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.0.119:3306/${spring.datasource.database}?useUnicode=true&characterEncoding=utf-8
-    username: root
-    password: 123456
+    url: jdbc:mysql://172.18.0.212:3306/${spring.datasource.database}?useUnicode=true&characterEncoding=utf-8
+    username: tacmgmt
+    password: tacmgmt
+  auto:
+    openurl: true
+  web:
+    loginurl: http://localhost:${server.port}/index.html
+    googleexcute: C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe
 logging:
   level:
     com.xieyu.mbgenerator: debug
